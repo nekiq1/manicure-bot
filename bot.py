@@ -1,7 +1,8 @@
 import asyncio
+import sys
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
-from aiogram.client.default import DefaultBotProperties  # <-- добавили
+from aiogram.client.default import DefaultBotProperties
 
 from config import BOT_TOKEN
 from database.db import db
@@ -11,9 +12,16 @@ from services.reminders import scheduler, restore_all_reminders
 
 
 async def main():
+    if not BOT_TOKEN or ":" not in BOT_TOKEN:
+        print(f"[ERROR] BOT_TOKEN is invalid or empty! Length: {len(BOT_TOKEN)}", file=sys.stderr)
+        print("[ERROR] Set TELEGRAM_BOT_TOKEN environment variable on Railway", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"[INFO] Starting bot, token length: {len(BOT_TOKEN)}, starts with: {BOT_TOKEN[:8]}...")
+
     bot = Bot(
         token=BOT_TOKEN,
-        default=DefaultBotProperties(parse_mode=ParseMode.HTML),  # <-- вместо parse_mode=...
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     dp = Dispatcher()
 
@@ -25,6 +33,7 @@ async def main():
     scheduler.start()
     await restore_all_reminders(bot)
 
+    print("[INFO] Bot started polling...")
     await dp.start_polling(bot)
 
 
