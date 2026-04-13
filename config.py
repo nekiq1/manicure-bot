@@ -1,6 +1,6 @@
 import os
 
-BOT_TOKEN = os.getenv("BOT_TOKEN") or os.getenv("TELEGRAM_BOT_TOKEN", "")
+BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", " ")
 
 ADMIN_ID = int(os.getenv("ADMIN_ID", "7642780807"))
 
