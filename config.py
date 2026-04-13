@@ -1,7 +1,7 @@
 import os
 
 # ОБЯЗАТЕЛЬНО заполните перед запуском
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("BOT_TOKEN",'8703924448:AAFKBxj4czXmcBjVYJ2EXu1pARPL9yT6lgc')
 
 # ID администратора (число, а не строка)
 ADMIN_ID = int(os.getenv("ADMIN_ID", "7642780807"))
